@@ -1,4 +1,7 @@
 import express from 'express';
+// 13. (start of graphql module) import schema. This is now what will hit our API
+import GrpahQLHTTP from 'express-graphql'
+import schema from './data/schema'
 import {MongoClient} from 'mongodb';
 
 const MONGO_URL = process.env.PLURALSIGHT_MONGO_1
@@ -6,6 +9,11 @@ const MONGO_URL = process.env.PLURALSIGHT_MONGO_1
 let app = express();
 
 app.use(express.static('public'));
+
+app.use('/graphql', GrpahQLHTTP({
+  schema,
+  graphiql: true
+}))
 
 let db;
 
