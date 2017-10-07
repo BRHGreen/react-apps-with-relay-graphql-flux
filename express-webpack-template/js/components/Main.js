@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PropTypes } from "react";
 import API from '../API'
 import LinkStore from '../stores/LinkStore'
 
@@ -7,12 +7,16 @@ let _getAppState = () => {
   return { links: LinkStore.getAll() }
 }
 
-export default class Main extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = _getAppState()
-    this.onChange = this.onChange.bind(this)
+class Main extends React.Component {
+  // 20. put static propTypes/defaultProps within the class
+  static propTypes = {
+    limit: React.PropTypes.number
   }
+  static defaultProps = {
+    limit: 3
+  }
+// 21. move state out of constructor. make onChange a property. remove constructor
+  state = _getAppState()
 
 // 3. import API module and call it on componentDidMount
 componentDidMount () {
@@ -23,13 +27,13 @@ componentDidMount () {
 componentWillUnmount () {
   LinkStore.removeListener('change', this.onChange)
 }
-onChange () {
+onChange = () => {
   console.log('4. In the View');
   this.setState(_getAppState())
 }
 
   render() {
-    let content = this.state.links.map(link => {
+    let content = this.state.links.slice(0, this.props.limit).map(link => {
       return(
       <li key={link._id}>
         <a href={link.url}>{link.url}</a>
@@ -46,3 +50,5 @@ onChange () {
     )
   }
 }
+
+export default Main

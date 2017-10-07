@@ -10,18 +10,15 @@ let app = express();
 
 app.use(express.static('public'));
 
-let db;
-
-MongoClient.connect(MONGO_URL, (err, database) => {
-  if (err) throw err;
-  db = database;
-  // 14. move the gql endpoint into the `.connect` method
+// 22. use `await` on connect, put in IIFE and set in npm start script
+(async () => {
+  let db = await MongoClient.connect(MONGO_URL)
   app.use('/graphql', GrpahQLHTTP({
     // 15. pass the db var into the schema. This is how we can access it in `schema.js`
     schema: schema(db),
     graphiql: true
   }))
   app.listen(3000, () => console.log('listening on port 3000'))
-});
+})()
 
 // 18. get rid of previous endpoint to ensure you are now using the gql endpoint.
