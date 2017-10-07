@@ -1,3 +1,5 @@
+// 13. create gql schema
+
 import {
   GraphQLSchema,
   GraphQLObjectType,
@@ -5,7 +7,7 @@ import {
   GraphQLString
 } from 'graphql'
 
-let counter = 42
+let data = [42, 43, 44]
 
 let schema = new GraphQLSchema({
   query: new GraphQLObjectType({
