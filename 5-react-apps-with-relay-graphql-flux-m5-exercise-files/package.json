@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/rgrjs/rgrjs.com#readme",
   "dependencies": {
-    "babel": "^6.3.26",
+    "babel": "^6.23.0",
     "babel-cli": "^6.3.17",
     "babel-core": "^6.3.26",
     "babel-loader": "^6.2.0",

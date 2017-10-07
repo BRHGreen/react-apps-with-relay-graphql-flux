@@ -12,7 +12,7 @@ app.use(express.static('public'));
 
 (async () => {
   try {
-    let db = await MongoClient.connect(process.env.MONGO_URL);
+    let db = await MongoClient.connect(process.env.PLURALSIGHT_MONGO_1);
     let schema = Schema(db);
 
     app.use('/graphql', GraphQLHTTP({
